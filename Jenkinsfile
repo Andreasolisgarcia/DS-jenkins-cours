@@ -113,4 +113,18 @@ stages {
       }
     }
   }
+
+
+  post{
+    failure {
+      mail to: "${env.EMAIL_NOTIFICATIONS}",
+      subject: "${env.JOB_NAME} - Build # ${env.BUILD_ID} has failed",
+      body: "For more info on the pipeline failure, check out the console output at ${env.BUILD_URL}"
+    }
+    success {
+      mail to: "${env.EMAIL_NOTIFICATIONS}",
+      subject: "${env.JOB_NAME} - Build # ${env.BUILD_ID} has successfully been completed",
+      body: "For more info on the pipeline, check out the console output at ${env.BUILD_URL}"
+    }
+  }
 }
